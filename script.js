@@ -1,53 +1,427 @@
-//TODO: Include your multi-line comment header
 /*
-    Name: 
-    Date: 
-    Assignment: 
-    Quarter: 
-    Instructor: 
+   Name: Michael Adams
+   Date: 9/27/2026
+   Assignment: #2
+   Quarter: 1
+   Instructor: Lisa
 */
 
-// TODO: Import "use strict" directive
+
 "use strict";
+
 
 // DO NOT MODIFY
 const display = (label, value) =>
-  (document.getElementById("output").innerHTML += `${label}: ${value}<br>`);
+ (document.getElementById("output").innerHTML += `${label}: ${value}<br>`);
 // END DO NOT MODIFY
+
 
 // ADD YOUR CODE BELOW
 
-// TODO: Create variables for your name (string), total number of modules for our class (number), and if you're enrolled (boolean)
-name;
-totalModules;
-isEnrolled;
 
-// TODO: Use a template literal to output a welcome message. Use at least one ${}.
+// Part 0: Arrays
+const courseModules = [
+ "Module 1",
+ "Module 2",
+ "Module 3",
+ "Module 4",
+ "Module 5",
+ "Module 6",
+ "Module 7",
+ "Module 8",
+ "Module 9",
+ "Module 10"
+];
 
-// TODO: Calculate the total study hours for the course. There are 10 modules. Each module takes roughly 6 hours.
-// Formula: totalStudyHours = totalModules * hoursPerWeek
 
-// TODO: Calculate the number of study hours each day. Convert the output to minutes (this formula is not provided).
-// Formula: dailyStudyHours = hoursPerWeek / 7
+const completedModules = ["Module 1", "Module 2"];
 
-// TODO: Give yourself a rest day and exclude one day out of your week. Calculate the new number of hours and set it to adjustedDailyHours. Convert the output to minutes (this formula is not provided).
 
-// TODO: Calculate the course percent complete and the course percent remaining. Imagine you've completed 2 modules (Start Here and Module 1).
-// Formula: percent = (part / whole) * 100
+// Module 1 variables
+const name = "Mikey";
+const totalModules = 10;
+const isEnrolled = true;
+
+
+// Welcome message
+const welcomeMessage = `Welcome to the course, ${name}!`;
+
+
+// Calculate total study hours
+const hoursPerWeek = 6;
+const totalStudyHours = totalModules * hoursPerWeek;
+
+
+// Calculate daily study hours and minutes
+const dailyStudyHours = hoursPerWeek / 7;
+const dailyStudyMinutes = dailyStudyHours * 60;
+
+
+// Give yourself a rest day
+const adjustedDailyHours = hoursPerWeek / 6;
+const adjustedDailyMinutes = adjustedDailyHours * 60;
+
+
+// Part 1: What's my current progress?
+
+
+const completedModuleCount = Number(
+ prompt("Enter the number of completed modules (1-10): ")
+);
+
+
+let percentComplete = 0;
+let percentRemaining = 100;
+let courseProgress;
+
+
+if (
+ Number.isInteger(completedModuleCount) &&
+ completedModuleCount >= 1 &&
+ completedModuleCount <= totalModules
+) {
+ percentComplete = (completedModuleCount / totalModules) * 100;
+ percentRemaining = 100 - percentComplete;
+
+
+ if (percentRemaining === 0) {
+   courseProgress = "Current Progress: Finished!";
+ } else if (percentRemaining >= 1 && percentRemaining <= 24.99) {
+   courseProgress = "Current Progress: Almost Finished!";
+ } else if (percentRemaining >= 25 && percentRemaining <= 74.99) {
+   courseProgress = "Current Progress: Making Progress";
+ } else if (percentRemaining >= 75 && percentRemaining <= 100) {
+   courseProgress = "Current Progress: Just Getting Started";
+ }
+} else {
+ courseProgress = "Invalid entry.";
+}
+
+
+// Part 2: What's my grade?
+
+
+let courseGrade;
+
+
+if (completedModuleCount >= 1 && completedModuleCount <= totalModules) {
+ if (percentComplete >= 90) {
+   courseGrade = "A";
+ } else if (percentComplete >= 80) {
+   courseGrade = "B";
+ } else if (percentComplete >= 70) {
+   courseGrade = "C";
+ } else if (percentComplete >= 60) {
+   courseGrade = "D";
+ } else {
+   courseGrade = "F";
+ }
+} else {
+ courseGrade = "Invalid entry.";
+}
+
+
+// Part 3: What does my study week look like?
+
+
+let studyDay;
+let studyPlan;
+
+
+if (percentRemaining === 0) {
+ studyDay = "Complete";
+} else {
+ studyDay = prompt(
+   "Enter your study day (Monday-Sunday): "
+ );
+}
+
+
+switch (studyDay) {
+ case "Monday":
+   studyPlan = `Study for ${dailyStudyMinutes.toFixed(2)} minutes today.`;
+   break;
+
+
+ case "Tuesday":
+   studyPlan = "Today is your rest day.";
+   break;
+
+
+ case "Wednesday":
+   studyPlan = `Lab day: Study for ${dailyStudyMinutes.toFixed(2)} minutes today.`;
+   break;
+
+
+ case "Thursday":
+   studyPlan = `Applied Programming Activity: Study for ${dailyStudyMinutes.toFixed(2)} minutes today.`;
+   break;
+
+
+ case "Friday":
+   studyPlan = "Open study day.";
+   break;
+
+
+ case "Saturday":
+   studyPlan = "Open study day.";
+   break;
+
+
+ case "Sunday":
+   studyPlan = "Open study day.";
+   break;
+
+
+ case "Complete":
+   studyPlan = "Course Completed!";
+   break;
+
+
+ default:
+   studyPlan = "Invalid day.";
+   break;
+}
+
 
 // DISPLAY RESULTS
 
-// TODO: Display your results. Use the correct variables and avoid hard-coding the data below.
-// TODO: Adjust all decimals to two places.
-display("Welcome Message");
-display("My Name");
-display("Enrolled");
-display("Total Modules");
-display("Daily Study Hours (7 days)");
-display("Daily Study Minutes (7 days)");
-display("Daily Study Hours (with rest day)");
-display("Daily Study Minutes (with rest day)");
 
-// TODO: Display your results with a % sign
-display("Percent Complete");
-display("Percent Remaining");
+display("Welcome Message", welcomeMessage);
+display("My Name", name);
+display("Enrolled", isEnrolled);
+display("Total Modules", totalModules);
+display("Daily Study Hours (7 days)", dailyStudyHours.toFixed(2));
+display("Daily Study Minutes (7 days)", dailyStudyMinutes.toFixed(2));
+display(
+ "Daily Study Hours (with rest day)",
+ adjustedDailyHours.toFixed(2)
+);
+display(
+ "Daily Study Minutes (with rest day)",
+ adjustedDailyMinutes.toFixed(2)
+);
+
+
+display("Percent Complete", percentComplete.toFixed(2) + "%");
+display("Percent Remaining", percentRemaining.toFixed(2) + "%");
+
+
+display("Course Progress", courseProgress);
+display("Course Grade", courseGrade);
+display("Study Day", studyDay);
+display("Study Plan", studyPlan);
+/*
+   Name: Michael Adams
+   Date: 9/27/2026
+   Assignment: #2
+   Quarter: 1
+   Instructor: Lisa
+*/
+
+
+"use strict";
+
+
+// DO NOT MODIFY
+const display = (label, value) =>
+ (document.getElementById("output").innerHTML += `${label}: ${value}<br>`);
+// END DO NOT MODIFY
+
+
+// ADD YOUR CODE BELOW
+
+
+// Part 0: Arrays
+const courseModules = [
+ "Module 1",
+ "Module 2",
+ "Module 3",
+ "Module 4",
+ "Module 5",
+ "Module 6",
+ "Module 7",
+ "Module 8",
+ "Module 9",
+ "Module 10"
+];
+
+
+const completedModules = ["Module 1", "Module 2"];
+
+
+// Module 1 variables
+const name = "Mikey";
+const totalModules = 10;
+const isEnrolled = true;
+
+
+// Welcome message
+const welcomeMessage = `Welcome to the course, ${name}!`;
+
+
+// Calculate total study hours
+const hoursPerWeek = 6;
+const totalStudyHours = totalModules * hoursPerWeek;
+
+
+// Calculate daily study hours and minutes
+const dailyStudyHours = hoursPerWeek / 7;
+const dailyStudyMinutes = dailyStudyHours * 60;
+
+
+// Give yourself a rest day
+const adjustedDailyHours = hoursPerWeek / 6;
+const adjustedDailyMinutes = adjustedDailyHours * 60;
+
+
+// Part 1: What's my current progress?
+
+
+const completedModuleCount = Number(
+ prompt("Enter the number of completed modules (1-10): ")
+);
+
+
+let percentComplete = 0;
+let percentRemaining = 100;
+let courseProgress;
+
+
+if (
+ Number.isInteger(completedModuleCount) &&
+ completedModuleCount >= 1 &&
+ completedModuleCount <= totalModules
+) {
+ percentComplete = (completedModuleCount / totalModules) * 100;
+ percentRemaining = 100 - percentComplete;
+
+
+ if (percentRemaining === 0) {
+   courseProgress = "Current Progress: Finished!";
+ } else if (percentRemaining >= 1 && percentRemaining <= 24.99) {
+   courseProgress = "Current Progress: Almost Finished!";
+ } else if (percentRemaining >= 25 && percentRemaining <= 74.99) {
+   courseProgress = "Current Progress: Making Progress";
+ } else if (percentRemaining >= 75 && percentRemaining <= 100) {
+   courseProgress = "Current Progress: Just Getting Started";
+ }
+} else {
+ courseProgress = "Invalid entry.";
+}
+
+
+// Part 2: What's my grade?
+
+
+let courseGrade;
+
+
+if (completedModuleCount >= 1 && completedModuleCount <= totalModules) {
+ if (percentComplete >= 90) {
+   courseGrade = "A";
+ } else if (percentComplete >= 80) {
+   courseGrade = "B";
+ } else if (percentComplete >= 70) {
+   courseGrade = "C";
+ } else if (percentComplete >= 60) {
+   courseGrade = "D";
+ } else {
+   courseGrade = "F";
+ }
+} else {
+ courseGrade = "Invalid entry.";
+}
+
+
+// Part 3: What does my study week look like?
+
+
+let studyDay;
+let studyPlan;
+
+
+if (percentRemaining === 0) {
+ studyDay = "Complete";
+} else {
+ studyDay = prompt(
+   "Enter your study day (Monday-Sunday): "
+ );
+}
+
+
+switch (studyDay) {
+ case "Monday":
+   studyPlan = `Study for ${dailyStudyMinutes.toFixed(2)} minutes today.`;
+   break;
+
+
+ case "Tuesday":
+   studyPlan = "Today is your rest day.";
+   break;
+
+
+ case "Wednesday":
+   studyPlan = `Lab day: Study for ${dailyStudyMinutes.toFixed(2)} minutes today.`;
+   break;
+
+
+ case "Thursday":
+   studyPlan = `Applied Programming Activity: Study for ${dailyStudyMinutes.toFixed(2)} minutes today.`;
+   break;
+
+
+ case "Friday":
+   studyPlan = "Open study day.";
+   break;
+
+
+ case "Saturday":
+   studyPlan = "Open study day.";
+   break;
+
+
+ case "Sunday":
+   studyPlan = "Open study day.";
+   break;
+
+
+ case "Complete":
+   studyPlan = "Course Completed!";
+   break;
+
+
+ default:
+   studyPlan = "Invalid day.";
+   break;
+}
+
+
+// DISPLAY RESULTS
+
+
+display("Welcome Message", welcomeMessage);
+display("My Name", name);
+display("Enrolled", isEnrolled);
+display("Total Modules", totalModules);
+display("Daily Study Hours (7 days)", dailyStudyHours.toFixed(2));
+display("Daily Study Minutes (7 days)", dailyStudyMinutes.toFixed(2));
+display(
+ "Daily Study Hours (with rest day)",
+ adjustedDailyHours.toFixed(2)
+);
+display(
+ "Daily Study Minutes (with rest day)",
+ adjustedDailyMinutes.toFixed(2)
+);
+
+
+display("Percent Complete", percentComplete.toFixed(2) + "%");
+display("Percent Remaining", percentRemaining.toFixed(2) + "%");
+
+
+display("Course Progress", courseProgress);
+display("Course Grade", courseGrade);
+display("Study Day", studyDay);
+display("Study Plan", studyPlan);
+
