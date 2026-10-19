@@ -1,11 +1,11 @@
+
 /*
    Name: Michael Adams
-   Date: 9/27/2026
-   Assignment: #2
+   Date: 10/18/2026
+   Assignment: #2 - Module 5 Applied Programming Activity
    Quarter: 1
    Instructor: Lisa
 */
-
 
 "use strict";
 
@@ -30,6 +30,29 @@ const studyDayInput = document.getElementById("studyDay");
 const generateButton = document.getElementById("generateButton");
 const resetButton = document.getElementById("resetButton");
 const output = document.getElementById("output");
+
+// Validate inputs
+const validateInputs = (studentName, completedModules, studyDay) => {
+    const errors = [];
+
+    if (studentName.trim() === "") {
+        errors.push("<li>Please enter a name.</li>");
+    }
+
+    if (completedModules < 0 || completedModules > 10) {
+        errors.push(
+            "<li>Completed modules must be between 0 and 10.</li>"
+        );
+    }
+
+    if (studyDay.trim() === "") {
+        errors.push("<li>Please select a study day.</li>");
+    }
+
+    if (errors.length > 0) {
+        throw new Error(errors.join(""));
+    }
+};
 
 // Calculate course grade
 const getCourseGrade = (percentComplete) => {
@@ -102,52 +125,127 @@ const applyDashboardColor = (percentComplete) => {
     }
 };
 
+// Run unit tests
+const runUnitTests = () => {
+    console.log("Starting unit tests...");
+
+    // Five letter-grade tests
+    console.assert(
+        getCourseGrade(100) === "A",
+        "Test failed: A grade"
+    );
+
+    console.assert(
+        getCourseGrade(80) === "B",
+        "Test failed: B grade"
+    );
+
+    console.assert(
+        getCourseGrade(70) === "C",
+        "Test failed: C grade"
+    );
+
+    console.assert(
+        getCourseGrade(60) === "D",
+        "Test failed: D grade"
+    );
+
+    console.assert(
+        getCourseGrade(0) === "F",
+        "Test failed: F grade"
+    );
+
+    // Five additional unit tests
+    console.assert(
+        getCourseGrade(90) === "A",
+        "Test failed: 90 percent grade boundary"
+    );
+
+    console.assert(
+        getCourseProgress(75) === "On Track",
+        "Test failed: On Track progress"
+    );
+
+    console.assert(
+        getCourseProgress(25) === "Making Progress",
+        "Test failed: Making Progress status"
+    );
+
+    console.assert(
+        getCourseProgress(0) === "Getting Started",
+        "Test failed: Getting Started status"
+    );
+
+    console.assert(
+        getStudyPlan("Monday") ===
+            "Review notes and plan your weekly goals.",
+        "Test failed: Monday study plan"
+    );
+
+    console.log("Unit tests completed. Check for assertion failures.");
+};
+
 // Generate dashboard
 const generateDashboard = () => {
-    const studentName = studentNameInput.value.trim() || "Student";
+    try {
+        // Run unit tests
+        runUnitTests();
 
-    let completedModules = Number(completedModulesInput.value);
+        // Read the input values
+        const studentName = studentNameInput.value;
+        const completedModules = Number(completedModulesInput.value);
+        const studyDay = studyDayInput.value;
 
-    // Keep the entered number within the valid range
-    completedModules = Math.max(
-        0,
-        Math.min(courseModules.length, completedModules || 0)
-    );
+        // Validate the input values
+        validateInputs(studentName, completedModules, studyDay);
 
-    completedModulesInput.value = completedModules;
+        const totalStudyHours = courseModules.length * 2;
+        const percentComplete =
+            (completedModules / courseModules.length) * 100;
+        const percentRemaining = 100 - percentComplete;
 
-    const studyDay = studyDayInput.value;
+        const dailyStudyHours = 2;
+        const dailyStudyMinutes = dailyStudyHours * 60;
 
-    const totalStudyHours = courseModules.length * 2;
-    const percentComplete =
-        (completedModules / courseModules.length) * 100;
-    const percentRemaining = 100 - percentComplete;
+        const grade = getCourseGrade(percentComplete);
+        const progress = getCourseProgress(percentComplete);
+        const studyPlan = getStudyPlan(studyDay);
 
-    const dailyStudyHours = 2;
-    const dailyStudyMinutes = dailyStudyHours * 60;
+        // Log dashboard values
+        console.log("Student name:", studentName);
+        console.log("Completed modules:", completedModules);
+        console.log("Study day:", studyDay);
+        console.log("Percent complete:", percentComplete);
+        console.log("Grade:", grade);
+        console.log("Progress:", progress);
 
-    const grade = getCourseGrade(percentComplete);
-    const progress = getCourseProgress(percentComplete);
-    const studyPlan = getStudyPlan(studyDay);
+        displayDashboard(
+            studentName,
+            completedModules,
+            totalStudyHours,
+            percentComplete,
+            percentRemaining,
+            grade,
+            progress,
+            studyDay,
+            studyPlan,
+            dailyStudyHours,
+            dailyStudyMinutes
+        );
 
-    displayDashboard(
-        studentName,
-        completedModules,
-        totalStudyHours,
-        percentComplete,
-        percentRemaining,
-        grade,
-        progress,
-        studyDay,
-        studyPlan,
-        dailyStudyHours,
-        dailyStudyMinutes
-    );
+        displayRemainingModules(completedModules);
+        applyDashboardColor(percentComplete);
 
-    // Create the remainingModulesList before using it
-    displayRemainingModules(completedModules);
+    } catch (error) {
+        output.innerHTML = `
+            <div class="dashboard-card">
+                <h2>Error</h2>
+                <ul>${error.message}</ul>
+            </div>
+        `;
 
-    applyDashboardColor(percentComplete);
+        output.style.backgroundColor = "#f8d7da";
+    }
 };
 
 // Display dashboard summary
@@ -190,6 +288,14 @@ const displayDashboard = (
 
 // Reset dashboard
 const resetDashboard = () => {
+    // Log existing input values before resetting
+    console.log("Student name before reset:", studentNameInput.value);
+    console.log(
+        "Completed modules before reset:",
+        completedModulesInput.value
+    );
+    console.log("Study day before reset:", studyDayInput.value);
+
     studentNameInput.value = "";
     completedModulesInput.value = 0;
     studyDayInput.selectedIndex = 0;
