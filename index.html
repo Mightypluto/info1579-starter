@@ -1,12 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
 
-<h1>Welcome to JavaScript!</h1>
+    <header>
+        <h1>My Course Dashboard</h1>
+    </header>
 
-<h4>Joke of the day</h4>
-<div id="jokeContainer"></div>
+    <main>
+        <section>
+            <h2>Course Information</h2>
+            <div id="dashboard"></div>
+        </section>
 
-<h4>Quote of the day</h4>
-<div id="quoteContainer"></div>
+        <section>
+            <h2>All Course Modules</h2>
+            <div id="allModulesList"></div>
+        </section>
 
-<script src="script.js"></script>
+        <section>
+            <h2>Remaining Modules</h2>
+            <div id="remainingModulesList"></div>
+        </section>
+
+        <section>
+            <h2>Random Joke</h2>
+            <p id="joke"></p>
+            <button id="jokeButton">Get Another Joke</button>
+        </section>
+
+        <section>
+            <h2>Random Quote</h2>
+            <p id="quote"></p>
+            <button id="quoteButton">Get Another Quote</button>
+        </section>
+    </main>
+
 </body>
 </html>
