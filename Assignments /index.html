@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="script.js"></script>
+</head>
+<body>
+    <header>
+        <h1>My Course Dashboard</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Student Information</h2>
+
+            <form id="dashboardForm">
+                <label for="studentName">Student Name:</label>
+                <input type="text" id="studentName" placeholder="Enter your name">
+
+                <label for="completedModules">Completed Modules:</label>
+                <input type="number" id="completedModules" min="0" max="10" value="6">
+
+                <label for="studyDay">Preferred Study Day:</label>
+                <input type="text" id="studyDay" placeholder="Example: Monday">
+
+                <button type="submit">Update Dashboard</button>
+                <button type="button" id="resetButton">Reset</button>
+            </form>
+
+            <p id="output"></p>
+        </section>
+
+        <section>
+            <h2>Course Information</h2>
+            <div id="dashboard"></div>
+        </section>
+
+        <section>
+            <h2>All Course Modules</h2>
+            <div id="allModulesList"></div>
+        </section>
+
+        <section>
+            <h2>Remaining Modules</h2>
+            <div id="remainingModulesList"></div>
+        </section>
+
+        <section>
+            <h2>Random Joke</h2>
+            <p id="joke">Loading joke...</p>
+            <button id="jokeButton" type="button">Get Another Joke</button>
+        </section>
+
+        <section>
+            <h2>Random Quote</h2>
+            <p id="quote">Loading quote...</p>
+            <button id="quoteButton" type="button">Get Another Quote</button>
+        </section>
+    </main>
+</body>
+</html>
