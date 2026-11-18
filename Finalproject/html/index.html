@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Endless Wars strategic warfare codex and rulebook.">
+  <title>Endless Wars | Codex</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Endless Wars home">
+      <span class="brand-mark">EW</span>
+      <span><strong>ENDLESS WARS</strong><small>STRATEGIC WARFARE DATABASE</small></span>
+    </a>
+    <form id="searchForm" class="search-form" role="search">
+      <input id="searchInput" type="search" placeholder="Search rules, units, factions..." aria-label="Search the codex">
+      <button type="submit">Search</button>
+    </form>
+    <a href="about.html" class="about-link">About Me</a>
+    <button id="menuToggle" class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-heading">CODEX INDEX</div>
+      <nav id="sidebarNavigation" aria-label="Codex pages">
+        <button class="nav-link active" data-page="home">Overview</button>
+        <button class="nav-link" data-page="rules">Core Rules</button>
+        <button class="nav-link" data-page="terrain">Map &amp; Terrain</button>
+        <button class="nav-link" data-page="units">Units &amp; Squads</button>
+        <button class="nav-link" data-page="weapons">Weapons</button>
+        <button class="nav-link" data-page="buildings">Buildings</button>
+        <button class="nav-link" data-page="lore">History &amp; Lore</button>
+      </nav>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-heading">FACTIONS</div>
+      <nav id="factionNavigation" aria-label="Factions"></nav>
+      <div class="sidebar-footer"><strong>ENDLESS WARS</strong><small>CODEX DATABASE</small></div>
+    </aside>
+
+    <main class="main-content">
+      <div class="breadcrumbs">CODEX <span>/</span> <span id="breadcrumbCurrent">Overview</span></div>
+      <div id="searchResults" class="search-results"></div>
+      <article id="content" aria-live="polite">
+        <h1>ENDLESS WARS</h1>
+        <p>Loading codex data...</p>
+      </article>
+    </main>
+  </div>
+
+  <footer class="site-footer">ENDLESS WARS <span>•</span> STRATEGIC WARFARE DATABASE</footer>
+  <script src="../js/data.js"></script>
+  <script src="../js/script.js"></script>
+</body>
+</html>
